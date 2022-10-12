@@ -1,32 +1,46 @@
 const Recipe = require("../models/recipeModel");
-const asyncHandler = require('express-async-handler')
-
 
 const getRecipes = async (req, res) => {
     try {
-        res.send("All recipe");
+        const recipes = await Recipe.find();
+
+        console.log(req.body)
+
+        if(recipes) {
+            const {title, ingredients, method, cookingTime} = recipes
+
+            res.status(201).json({
+                title,
+                ingredients,
+                method,
+                cookingTime
+            })
+
+        } else {
+            res.status(400)
+            throw new Error("No recipe found!")
+        }
+
     } catch (error) {
         console.log(error.message)
     }
 }
 
+
+
 // creating recipe 
-const createRecipe = async(req, res) => {
+const createRecipe = async(req,res) => {
     try {
-        // const { title, ingredients, method, cookingTime } =  req.body
-        const title =""
-        const ingredients = "pepper, onion, flour"
-        const method = "cokking"
-        const cookingTime ="15 minutes"
+        const { title, ingredients, method, cookingTime } = req.body;
 
         if(!title || !ingredients || !method || !cookingTime) {
             res.status(400)
-            throw new Error("Please fill all fields")
+            throw new Error("Please fill all fields");
         }
 
         const recipe = await Recipe.create({
             title, 
-            ingredients, 
+            ingredients: ingredients.split(","), 
             method, 
             cookingTime
         })
@@ -45,11 +59,9 @@ const createRecipe = async(req, res) => {
         }
     } catch (error) {
         res.status(400)
-        throw new Error("request failed to execute")
+        throw new Error(error.message)
     }
 }
-
-
 
 module.exports = {
     getRecipes,

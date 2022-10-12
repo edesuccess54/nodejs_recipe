@@ -7,7 +7,7 @@ const modelSchema = mongoose.Schema(
         require: [true, "Please add recipe title"]
     },
     ingredients: {
-        type: String,
+        type: Array,
         require: [true, "Please add atleast one ingredients"]
     },
     method: {
