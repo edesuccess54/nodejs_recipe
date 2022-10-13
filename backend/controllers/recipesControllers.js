@@ -93,14 +93,25 @@ const getSingleRecipe = async (req, res) => {
 // deleteing a single recipe 
 const deleteRecipe = async (req, res) => {
     try {
+        const { id } = req.params
+        const recipe = await Recipe.findByIdAndDelete(id)
+
+        if(recipe) {
+            res.status(400).json({message: "recipe deleted"})
+        } else {
+            res.status(400)
+            throw new Error(`No recipe with id -> ${id} found`)
+        }
         
     } catch (error) {
-        
+        res.status(400).json({message: error.message})
+        // throw new Error(error.message)
     }
 }
 
 module.exports = {
     getRecipes,
     createRecipe,
-    getSingleRecipe
+    getSingleRecipe,
+    deleteRecipe
 }
