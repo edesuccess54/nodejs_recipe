@@ -27,7 +27,6 @@ const getRecipes = async (req, res) => {
 }
 
 
-
 // creating recipe 
 const createRecipe = async(req,res) => {
     try {
@@ -63,7 +62,45 @@ const createRecipe = async(req,res) => {
     }
 }
 
+// getting a single recipe 
+const getSingleRecipe = async (req, res) => {
+
+    try {
+        const { id } = (req.params)
+        const recipe = await Recipe.findById(id);
+
+        if (recipe) {
+            const { _id, title, ingredients, method, cookingTime } = recipe
+
+            res.status(201).json({
+                _id, 
+                title, 
+                ingredients, 
+                method, 
+                cookingTime
+            })
+        } else {
+            res.status(400)
+            throw new Error("Recipe not found")
+        }
+        
+    } catch (error) {
+        res.status(400)
+        throw new Error(error.message)
+    }
+}
+
+// deleteing a single recipe 
+const deleteRecipe = async (req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
 module.exports = {
     getRecipes,
-    createRecipe
+    createRecipe,
+    getSingleRecipe
 }
