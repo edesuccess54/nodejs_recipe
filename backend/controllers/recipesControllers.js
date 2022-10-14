@@ -4,17 +4,16 @@ const getRecipes = async (req, res) => {
     try {
         const recipes = await Recipe.find();
 
-        console.log(req.body)
+        // console.log(recipes)
 
         if(recipes) {
-            const {title, ingredients, method, cookingTime} = recipes
+            let allRecipes = []
+            recipes.forEach((recipe) => {
+            allRecipes.push(recipe)
 
-            res.status(201).json({
-                title,
-                ingredients,
-                method,
-                cookingTime
-            })
+        })
+
+        res.status(201).json({allRecipes})
 
         } else {
             res.status(400)
@@ -85,8 +84,8 @@ const getSingleRecipe = async (req, res) => {
         }
         
     } catch (error) {
-        res.status(400)
-        throw new Error(error.message)
+        res.status(400).json({message: error.message})
+        // throw new Error(error.message)
     }
 }
 
