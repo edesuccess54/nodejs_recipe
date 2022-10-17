@@ -13,7 +13,7 @@ const getRecipes = async (req, res) => {
 
         })
 
-        res.status(201).json({allRecipes})
+        res.status(201).json(recipes)
 
         } else {
             res.status(400)
