@@ -9,6 +9,6 @@ const urlencodedparser = bodyParser.urlencoded({extended: false})
 router.get("/recipes", getRecipes)
 router.get("/recipes/:id", getSingleRecipe)
 router.delete("/recipes/:id", deleteRecipe)
-router.post("/create", urlencodedparser, createRecipe)
+router.post("/create", createRecipe)
 
 module.exports = router

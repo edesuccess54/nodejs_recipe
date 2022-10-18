@@ -12,6 +12,7 @@ const port = process.env.PORT || 5000;
 
 // routes middleware
 app.use("/api/recipe", recipeRoutes)
+app.use(express.json());
 
 app.get("/", (req, res) => {
     res.send("Home page is running")
