@@ -4,11 +4,11 @@ const { getRecipes, createRecipe, getSingleRecipe, deleteRecipe } = require("../
 
 const router = express.Router();
 
-const urlencodedparser = bodyParser.urlencoded({extended: false})
+const urlencoded_parser = bodyParser.urlencoded({extended: false})
 
 router.get("/recipes", getRecipes)
 router.get("/recipes/:id", getSingleRecipe)
 router.delete("/recipes/:id", deleteRecipe)
-router.post("/create",urlencodedparser, createRecipe)
+router.post("/create",urlencoded_parser, createRecipe)
 
 module.exports = router
